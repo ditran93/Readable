@@ -8,11 +8,11 @@ export default class NavigationBar extends Component {
       <div>
         <Nav>
           <NavItem>
-            <NavLink href="showAll">Show All</NavLink>
+            <NavLink href="/">Show All</NavLink>
           </NavItem>
           {categories.map((category) => (
             <NavItem key={category.name}>
-              <NavLink href={category.name}>{category.name.toUpperCase()}</NavLink>
+              <NavLink href="/">{category.name.toUpperCase()}</NavLink>
             </NavItem>
           ))}
         </Nav>

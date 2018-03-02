@@ -3,6 +3,7 @@ import ListPosts from './ListPosts'
 import '../App.css';
 import NavigationBar from './NavigationBar'
 import CreatePostForm from './CreatePostForm'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -47,9 +48,15 @@ class App extends Component {
     ]
     return (
       <div className="App">
-        <NavigationBar categories={categories} />
-        <ListPosts posts={posts}/>
-        <CreatePostForm categories={categories} />
+        <Route exact path="/" render={() => (
+          <div>
+            <NavigationBar categories={categories}/>
+            <ListPosts posts={posts}/>
+          </div>
+        )}/>
+        <Route path="/createPost" render={() => (
+          <CreatePostForm categories={categories} />
+        )}/>
       </div>
     );
   }

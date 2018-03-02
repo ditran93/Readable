@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import Vote from './Vote'
 import { Button } from 'reactstrap';
-import { ListGroup, ListGroupItem } from 'reactstrap';
-<<<<<<< HEAD
+import { Jumbotron, Container, Row, Col } from 'reactstrap';
 import '../styles/ListPosts.css'
-=======
->>>>>>> 2b06868d6ea6691152d4236d8ea77eee00b980d4
+import { Link } from 'react-router-dom'
 
 class ListPosts extends Component {
 
@@ -13,11 +11,27 @@ class ListPosts extends Component {
     const { posts } = this.props
     return (
       <div>
-        <ListGroup>
+        <Container className='buttonControl'>
+          <Row>
+            <Col xs="6">
+              <Link to="/createPost">
+                <Button>Create post</Button>
+              </Link>
+            </Col>
+            <Col xs="3">
+              <Button>Sort By Date</Button>
+            </Col>
+            <Col xs="3">
+              <Button>Sort By Vote</Button>
+            </Col>
+          </Row>
+        </Container>
+        <div>
           {posts.map((post) => (
-            <ListGroupItem key={post.id} >
+            <Jumbotron key={post.id} >
               <h3>{post.title}</h3>
-              <h5>Posted by {post.author} in {post.category}</h5>
+              <p>Posted by {post.author} in {post.category}</p>
+              <hr className="my-2" />
               <div className='sub-content'>
                 <h6>Comments: {post.commentCount}</h6>
                 <h6><Vote voteScore={post.voteScore}/></h6>
@@ -26,9 +40,9 @@ class ListPosts extends Component {
                   <Button color="danger" size="sm">Delete</Button>
                 </div>
               </div>
-            </ListGroupItem>
+            </Jumbotron>
           ))}
-        </ListGroup>
+        </div>
       </div>
     )
   }
