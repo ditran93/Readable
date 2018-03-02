@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Vote from './Vote'
 import { Button } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import '../styles/ListPosts.css'
 
 class ListPosts extends Component {
 
