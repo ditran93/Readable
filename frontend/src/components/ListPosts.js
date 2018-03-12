@@ -6,12 +6,24 @@ import '../styles/ListPosts.css'
 import { Link } from 'react-router-dom'
 import CategoryNavigateBar from './CategoryNavigateBar'
 import { connect } from 'react-redux'
-import reducer from '../reducers'
+import { fetchPosts } from '../actions'
 
 class ListPosts extends Component {
 
+  state = {
+    posts: []
+  }
+
+  componentDidMount() {
+    this.props.fetchPosts()
+    .then(data => data.posts)
+    .then(data => {
+      this.setState({ posts: data })
+    })
+  }
+
   render() {
-    console.log('Props: ', this.props)
+
     const { posts } = this.props
     return (
       <div>
@@ -54,7 +66,7 @@ class ListPosts extends Component {
                 ))}
               </Col>
               <Col xs="4">
-                <CategoryNavigateBar categories={this.props.categories}/>
+                <CategoryNavigateBar />
               </Col>
             </Row>
           </Container>
@@ -74,4 +86,10 @@ function mapStateToProps({posts, categories}) {
   }
 }
 
-export default connect(mapStateToProps)(ListPosts)
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchPosts: (data) => dispatch(fetchPosts(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListPosts)

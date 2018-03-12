@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import { Nav, NavItem, NavLink } from 'reactstrap'
+import { connect } from 'react-redux'
+import { fetchCategories } from '../actions'
 
-export default class CategoryNavigateBar extends Component {
+class CategoryNavigateBar extends Component {
+  
+  componentDidMount() {
+    this.props.fetchCategories()
+  }
   render () {
     const { categories } = this.props
+    console.log('categories: ', categories)
     return (
       <div>
         <ul>
@@ -21,17 +27,21 @@ export default class CategoryNavigateBar extends Component {
             </li>
           ))}
         </ul>
-        {/* <Nav>
-          <NavItem>
-            <NavLink href="/">Show All</NavLink>
-          </NavItem>
-          {categories.map((category) => (
-            <NavItem key={category.name}>
-              <NavLink href="/">{category.name.toUpperCase()}</NavLink>
-            </NavItem>
-          ))}
-        </Nav> */}
       </div>
     )
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchCategories: (data) => dispatch(fetchCategories(data))
+  }
+}
+
+function mapStateToProps({categories}) {
+  return {
+    categories: categories
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryNavigateBar)

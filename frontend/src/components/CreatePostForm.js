@@ -26,19 +26,20 @@ class CreatePostForm extends Component {
     })
   }
 
-  handleCreatePost() {
-    debugger
+  handleCreatePost(e) {
+    e.preventDefault()
     this.props.createPost(this.state)
+
   }
 
   render() {
-    console.log(this.state)
+    console.log('Create post form state: ', this.state)
     const { categories } = this.props
-    console.log(this.props)
+    console.log('Create post form props: ', this.props)
     return (
       <div className='create-post-form'>
         <h3>Create Post Form</h3>
-        <Form onSubmit={() => this.handleCreatePost()}>
+        <Form onSubmit={(e) => this.handleCreatePost(e)}>
           <FormGroup>
             <Label for="selectCategories">Choose A Category</Label>
             <Input 
@@ -79,20 +80,11 @@ class CreatePostForm extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+
+function mapStateToProps({ categories }) {
   return {
-    createPost: (data) => dispatch(createPost(data))
+    categories: categories
   }
 }
 
-function mapStateToProps({ posts, categories }) {
-  const postIdArray = Object.keys(posts)
-  return {
-    posts: postIdArray.map((postId) => (
-      posts[postId]
-    )),
-    categories: categories.categories
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePostForm)
+export default connect(mapStateToProps, {createPost})(CreatePostForm)
