@@ -15,8 +15,8 @@ export default class ReadableApp extends Component {
             <ListPosts />
           </div>
         )}/>
-        <Route path="/createPost" render={() => (
-          <CreatePostForm />
+        <Route path="/createPost" render={({ history }) => (
+          <CreatePostForm history={history}/>
         )}/>
       </div>
     );

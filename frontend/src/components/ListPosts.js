@@ -6,7 +6,8 @@ import '../styles/ListPosts.css'
 import { Link } from 'react-router-dom'
 import CategoryNavigateBar from './CategoryNavigateBar'
 import { connect } from 'react-redux'
-import { fetchPosts } from '../actions'
+import { fetchPosts, deletePost } from '../actions'
+import { objectToArray } from '../utils/helpers'
 
 class ListPosts extends Component {
 
@@ -58,7 +59,12 @@ class ListPosts extends Component {
                       <h6><Vote voteScore={post.voteScore}/></h6>
                       <div className='edit-delete'>
                         <Button color="warning" size="sm">Edit</Button>
-                        <Button color="danger" size="sm">Delete</Button>
+                        <Button 
+                          onClick={deletePost(post)}
+                          color="danger" 
+                          size="sm"
+                          >Delete
+                        </Button>
                         <Button color="info" size="sm">Comment</Button>
                       </div>
                     </div>
@@ -77,18 +83,16 @@ class ListPosts extends Component {
 }
 
 function mapStateToProps({posts, categories}) {
-  const postIdArray = Object.keys(posts)
   return {
-    posts: postIdArray.map((postId) => (
-      posts[postId]
-    )),
+    posts: objectToArray(posts),
     categories: categories.categories
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchPosts: (data) => dispatch(fetchPosts(data))
+    fetchPosts: (data) => dispatch(fetchPosts(data)),
+    deletePost: (post) => dispatch(deletePost(post))
   }
 }
 

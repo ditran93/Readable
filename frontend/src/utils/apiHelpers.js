@@ -1,3 +1,5 @@
+import { arrayToObject } from './helpers'
+
 const url = 'http://localhost:3001';
 const headers = {
   'Accept': 'application/json',
@@ -14,8 +16,10 @@ export function getAllPosts() {
     }
   )
   .then(response => response.json())
-  .then(data => data)
-};
+  .then(data => {
+    return arrayToObject(data)
+  })
+}
 
 export function createPost(post) {
   return fetch(
@@ -27,9 +31,21 @@ export function createPost(post) {
     }
   )
   .then(response => response.json())
-  .then(data => {
-    data})
+  .then(data => data)
 }
+
+export function deletePost(post) {
+  return fetch(
+    `${url}/posts/${post.id}`,
+    {
+      method: 'DELETE',
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => data)
+}
+
 /***********Categories************/
 export function getAllCategories() {
   return fetch(

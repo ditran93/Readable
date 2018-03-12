@@ -14,6 +14,7 @@ class CreatePostForm extends Component {
     title: '',
     content: '',
     voteScore: 1,
+    deleted: false,
     timestamp: Date.now()
   }
 
@@ -29,13 +30,11 @@ class CreatePostForm extends Component {
   handleCreatePost(e) {
     e.preventDefault()
     this.props.createPost(this.state)
-
+    return this.props.history.push("/");
   }
 
   render() {
-    console.log('Create post form state: ', this.state)
     const { categories } = this.props
-    console.log('Create post form props: ', this.props)
     return (
       <div className='create-post-form'>
         <h3>Create Post Form</h3>

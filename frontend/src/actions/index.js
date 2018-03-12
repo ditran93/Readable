@@ -5,7 +5,9 @@ export const DELETE_POST = 'DELETE_POST'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 
-/*********** Posts *************/
+/**
+ * Posts
+ **/
 export function createPostAction (post) {
   return {
     type: CREATE_POST,
@@ -31,7 +33,20 @@ export const fetchPosts = () => (dispatch) => {
     })
 }
 
-/***********Categories************/
+export function deletePostAction(post) {
+  return {
+    type: DELETE_POST,
+    post
+  }
+}
+
+export const deletePost = (post) => (dispatch) => {
+  return apiHelpers.deletePost(post).then(post => dispatch(deletePostAction(post)))
+}
+
+/**
+ * Categories
+ **/
 export function getAllCategories (categories) {
   return {
     type: GET_ALL_CATEGORIES,
