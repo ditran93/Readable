@@ -10,9 +10,9 @@ export default class ReadableApp extends Component {
     return (
       <div className="App">
         <h3 className="banner"> Welcome To Readable</h3>
-        <Route exact path="/" render={() => (
+        <Route exact path="/" render={({ history }) => (
           <div>
-            <ListPosts />
+            <ListPosts history={history}/>
           </div>
         )}/>
         <Route path="/createPost" render={({ history }) => (

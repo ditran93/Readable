@@ -24,8 +24,8 @@ class ListPosts extends Component {
   }
 
   render() {
-
-    const { posts } = this.props
+    console.log('listpost: ', this.props)
+    const { posts, deletePost, fetchPosts } = this.props
     return (
       <div>
         <Container className='buttonControl'>
@@ -60,7 +60,10 @@ class ListPosts extends Component {
                       <div className='edit-delete'>
                         <Button color="warning" size="sm">Edit</Button>
                         <Button 
-                          onClick={deletePost(post)}
+                          onClick={() => {
+                            deletePost(post)
+                            window.location.reload();
+                          }}
                           color="danger" 
                           size="sm"
                           >Delete

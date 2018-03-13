@@ -25,15 +25,14 @@ function posts (state = {}, action) {
         ...state,
         [post.id]: post
       }
+    case DELETE_POST:
+      let newState = {...state}
+      delete newState[post.id]
+      return state
     case GET_ALL_POSTS:
       return {
         ...state,
         ...posts
-      }
-    case DELETE_POST:
-      return {
-        ...state,
-        posts: arrayToObject(objectToArray(posts).filter(post => post !== post.id ))
       }
     default:
       return state
