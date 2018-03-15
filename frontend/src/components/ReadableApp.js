@@ -1,25 +1,46 @@
 import React, { Component } from 'react'
-import ListPosts from './ListPosts'
+import MainPage from './MainPage'
 import '../styles/ReadableApp.css';
 import CreatePostForm from './CreatePostForm'
-import { Route } from 'react-router-dom'
+import { Switch, withRouter, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchPosts, fetchCategories } from '../actions/index'
+import CategoryPage from './CategoryPage'
 
-export default class ReadableApp extends Component {
+class ReadableApp extends Component {
+
+  componentDidMount() {
+    this.props.fetchPosts()
+    this.props.fetchCategories()
+  }
+
   render() {
-   
     return (
       <div className="App">
         <h3 className="banner"> Welcome To Readable</h3>
-        <Route exact path="/" render={({ history }) => (
-          <div>
-            <ListPosts history={history}/>
-          </div>
-        )}/>
-        <Route path="/createPost" render={({ history }) => (
-          <CreatePostForm history={history}/>
-        )}/>
+        <Switch>
+          <Route exact path="/" render={({ history }) => (
+            <div>
+              <MainPage history={history}/>
+            </div>
+          )}/>
+          <Route exact path="/createPost" render={({ history }) => (
+            <CreatePostForm history={history}/>
+          )}/>
+          <Route exact path='/:category/' render={({match}) => (
+              <CategoryPage category={match.params.category}/>
+            )}/>
+        </Switch>
       </div>
     );
   }
 }
 
+function mapStateToProps({ posts, categories }) {
+  return {
+    posts: posts,
+    categories: categories
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {fetchPosts, fetchCategories})(ReadableApp))

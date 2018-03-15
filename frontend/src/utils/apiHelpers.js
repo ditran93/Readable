@@ -1,4 +1,3 @@
-import { arrayToObject } from './helpers'
 
 const url = 'http://localhost:3001';
 const headers = {
@@ -16,9 +15,7 @@ export function getAllPosts() {
     }
   )
   .then(response => response.json())
-  .then(data => {
-    return arrayToObject(data)
-  })
+  .then(data => data)
 }
 
 export function createPost(post) {
@@ -39,6 +36,19 @@ export function deletePost(post) {
     `${url}/posts/${post.id}`,
     {
       method: 'DELETE',
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => data)
+}
+
+export function editPost(post) {
+
+  return fetch(
+    `${url}/posts/${post.id}`,
+    {
+      method: 'PUT',
       headers
     }
   )

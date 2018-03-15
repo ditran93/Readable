@@ -4,6 +4,7 @@ export const CREATE_POST = 'CREATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
+export const EDIT_POST = 'EDIT_POST'
 
 /**
  * Posts
@@ -42,6 +43,21 @@ export function deletePostAction(post) {
 
 export const deletePost = (post) => (dispatch) => {
   return apiHelpers.deletePost(post).then(post => dispatch(deletePostAction(post)))
+}
+
+export const editPostAction = (post) => {
+  
+  return {
+    type: EDIT_POST,
+    post
+  }
+}
+
+export const editPost = (post) => (dispatch) => {
+  return apiHelpers.editPost(post)
+  .then(post => {
+    return dispatch(editPostAction(post))
+  })
 }
 
 /**

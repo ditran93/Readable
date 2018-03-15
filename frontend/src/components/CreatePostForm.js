@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/CreatePostForm.css'
-import { createPost } from '../actions'
+import { createPost, editPost } from '../actions'
 import { connect } from 'react-redux'
 import { randomId } from '../utils/helpers'
+import { withRouter } from 'react-router-dom';
 
 class CreatePostForm extends Component {
 
@@ -12,10 +13,23 @@ class CreatePostForm extends Component {
     author: '',
     category: 'react',
     title: '',
-    content: '',
+    body: '',
     voteScore: 1,
     deleted: false,
     timestamp: Date.now()
+  }
+
+  componentDidMount() {
+    const {originalPost} = this.props
+    if (originalPost) {
+      this.setState({
+        id: originalPost.id,
+        author: originalPost.author,
+        category: originalPost.category,
+        title: originalPost.title,
+        body: originalPost.body
+      }) 
+    }
   }
 
   handlechange(event) {
@@ -27,10 +41,38 @@ class CreatePostForm extends Component {
     })
   }
 
-  handleCreatePost(e) {
+  handleSubmit(e) {
     e.preventDefault()
-    this.props.createPost(this.state)
+    const { originalPost, createPost, editPost, onSubmit } = this.props
+
+    if(originalPost) {
+      debugger
+      editPost(this.state)
+    } else {
+      createPost(this.state)
+    }
+
+    if(onSubmit){
+      onSubmit()
+    }
     return this.props.history.push("/");
+  }
+
+  generateButton() {
+    const { originalPost } = this.props
+    const button = originalPost ? "Save Post" : "Create Post"
+
+    if (originalPost) {
+      return (
+        <div>
+          <Button type="submit">{button}</Button>
+          <Button onClick={() => {this.props.onCancel()}}
+          >Cancel</Button>
+        </div>
+      )
+      } else {
+        return <Button type="submit">{button}</Button>;
+      }
   }
 
   render() {
@@ -38,7 +80,7 @@ class CreatePostForm extends Component {
     return (
       <div className='create-post-form'>
         <h3>Create Post Form</h3>
-        <Form onSubmit={(e) => this.handleCreatePost(e)}>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
           <FormGroup>
             <Label for="selectCategories">Choose A Category</Label>
             <Input 
@@ -56,12 +98,14 @@ class CreatePostForm extends Component {
             <Input 
               type="text" 
               name="author" 
+              value={this.state.author}
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
           <FormGroup>
             <Label for="inputTitle">Title</Label>
             <Input 
               type="text" 
+              value={this.state.title}
               name="title" 
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
@@ -69,10 +113,11 @@ class CreatePostForm extends Component {
             <Label for="inputContent">Content</Label>
             <Input 
               type="textarea" 
+              value={this.state.body}
               name="content" 
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
-          <Button type="submit">Create Post</Button>
+          {this.generateButton()}
         </Form>
       </div>
     )
@@ -86,4 +131,4 @@ function mapStateToProps({ categories }) {
   }
 }
 
-export default connect(mapStateToProps, {createPost})(CreatePostForm)
+export default withRouter(connect(mapStateToProps, {createPost, editPost})(CreatePostForm))

@@ -5,23 +5,19 @@ import { fetchCategories } from '../actions'
 
 class CategoryNavigateBar extends Component {
   
-  componentDidMount() {
-    this.props.fetchCategories()
-  }
   render () {
     const { categories } = this.props
-    console.log('categories: ', categories)
     return (
       <div>
         <ul>
           <li>
-            <Link to="#">
+            <Link to="/">
               Show All
             </Link>
           </li>
           {categories.map((category) => (
             <li key={category.name}>
-              <Link to="#">
+              <Link to={`/${category.path}`} >
                 {category.name}
               </Link>
             </li>
@@ -34,7 +30,7 @@ class CategoryNavigateBar extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCategories: (data) => dispatch(fetchCategories(data))
+    fetchCategories: (data) => dispatch(fetchCategories(data)),
   }
 }
 

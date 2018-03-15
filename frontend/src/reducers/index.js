@@ -2,10 +2,11 @@ import {
   CREATE_POST,
   GET_ALL_CATEGORIES,
   GET_ALL_POSTS,
-  DELETE_POST
+  DELETE_POST,
+  EDIT_POST
 } from '../actions/index'
 import { combineReducers } from 'redux'
-import { objectToArray, arrayToObject } from '../utils/helpers';
+import { arrayToObject } from '../utils/helpers';
 
 function categories (state = [], action) {
   const { categories } = action
@@ -28,12 +29,17 @@ function posts (state = {}, action) {
     case DELETE_POST:
       let newState = {...state}
       delete newState[post.id]
-      return state
+      return newState
     case GET_ALL_POSTS:
       return {
         ...state,
-        ...posts
+        ...arrayToObject(posts)
       }
+    case EDIT_POST:
+      return {
+        ...state,
+        [post.id]: post
+    }
     default:
       return state
   }
