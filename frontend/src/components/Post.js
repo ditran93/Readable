@@ -45,7 +45,7 @@ class Post extends Component {
   }
 
   render() {
-    const {deletePost, post} = this.props
+    const { deletePost, post } = this.props
     return (
       <div>
         <Jumbotron key={post.id} >
@@ -54,7 +54,11 @@ class Post extends Component {
           <hr className="my-2" />
           <div className='sub-content'>
             <h6>Comments: {post.commentCount}</h6>
-            <h6><Vote voteScore={post.voteScore}/></h6>
+            <h6><Vote 
+              voteScore={post.voteScore}
+              id={post.id}
+              type='post'
+              /></h6>
             <div className='edit-delete'>
               <Button 
               color="warning" 
@@ -84,4 +88,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapDispatchToProps)(Post)
+export default connect(null, mapDispatchToProps)(Post)

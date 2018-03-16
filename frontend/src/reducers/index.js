@@ -3,7 +3,8 @@ import {
   GET_ALL_CATEGORIES,
   GET_ALL_POSTS,
   DELETE_POST,
-  EDIT_POST
+  EDIT_POST,
+  VOTE
 } from '../actions/index'
 import { combineReducers } from 'redux'
 import { arrayToObject } from '../utils/helpers';
@@ -45,7 +46,20 @@ function posts (state = {}, action) {
   }
 }
 
+function vote(state = {}, action) {
+  switch(action.type) {
+    case VOTE:
+      return {
+        ...state,
+        [action.id]: action.score
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   posts,
-  categories
+  categories,
+  vote
 })

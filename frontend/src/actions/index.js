@@ -5,6 +5,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const EDIT_POST = 'EDIT_POST'
+export const VOTE = 'VOTE'
 
 /**
  * Posts
@@ -75,4 +76,20 @@ export const fetchCategories = () => (dispatch) => {
   .then((categories) => {
     return dispatch(getAllCategories(categories))
   })
+}
+
+/**
+ * VOTE
+ **/
+export const voteAction = (id, score) => {
+  return {
+    type: VOTE,
+    id,
+    score
+  }
+}
+
+export const vote = (id, option, type) => dispatch => {
+  return apiHelpers.vote(id, option, type)
+    .then(data => dispatch(voteAction(id, data.voteScore)))
 }

@@ -6,7 +6,9 @@ const headers = {
   'Authorization': 'userId'
 };
 
-/*********** Posts *************/
+/**
+ * Posts
+ **/
 export function getAllPosts() {
   return fetch(
     `${url}/posts`,
@@ -44,11 +46,16 @@ export function deletePost(post) {
 }
 
 export function editPost(post) {
+  const postData = {
+    ...post,
+    timestamp: Date.now()
+  }
 
   return fetch(
     `${url}/posts/${post.id}`,
     {
       method: 'PUT',
+      body: JSON.stringify(postData),
       headers
     }
   )
@@ -56,7 +63,9 @@ export function editPost(post) {
   .then(data => data)
 }
 
-/***********Categories************/
+/**
+ * Categories
+ **/
 export function getAllCategories() {
   return fetch(
     `${url}/categories`,
@@ -67,4 +76,24 @@ export function getAllCategories() {
   .then(response => response.json())
   .then(data => data.categories)
   .then(data => data)
+}
+
+/**
+ * VOTE
+ **/
+export const vote = (id, option, type) => {
+  const voteData = { id, option }
+
+  if(type === 'post') {
+    return fetch(
+      `${url}/posts/${id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(voteData),
+        headers
+      }
+    )
+    .then(response => response.json())
+    .then(data => data)
+  }
 }

@@ -27,6 +27,7 @@ class CreatePostForm extends Component {
         author: originalPost.author,
         category: originalPost.category,
         title: originalPost.title,
+        voteScore: originalPost.voteScore,
         body: originalPost.body
       }) 
     }
@@ -46,7 +47,6 @@ class CreatePostForm extends Component {
     const { originalPost, createPost, editPost, onSubmit } = this.props
 
     if(originalPost) {
-      debugger
       editPost(this.state)
     } else {
       createPost(this.state)
@@ -77,6 +77,8 @@ class CreatePostForm extends Component {
 
   render() {
     const { categories } = this.props
+    const { category, author, title, body } = this.state
+    console.log('form: ', this.state)
     return (
       <div className='create-post-form'>
         <h3>Create Post Form</h3>
@@ -84,7 +86,7 @@ class CreatePostForm extends Component {
           <FormGroup>
             <Label for="selectCategories">Choose A Category</Label>
             <Input 
-              value={this.state.category}
+              value={category}
               type="select" 
               name="category"
               onChange={e => this.handlechange(e)}>
@@ -98,14 +100,14 @@ class CreatePostForm extends Component {
             <Input 
               type="text" 
               name="author" 
-              value={this.state.author}
+              value={author}
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
           <FormGroup>
             <Label for="inputTitle">Title</Label>
             <Input 
               type="text" 
-              value={this.state.title}
+              value={title}
               name="title" 
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
@@ -113,8 +115,8 @@ class CreatePostForm extends Component {
             <Label for="inputContent">Content</Label>
             <Input 
               type="textarea" 
-              value={this.state.body}
-              name="content" 
+              value={body}
+              name="body" 
               onChange={e => this.handlechange(e)} required/>
           </FormGroup>
           {this.generateButton()}
