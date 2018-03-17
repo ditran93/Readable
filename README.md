@@ -7,7 +7,7 @@ This project is built with React, Redux, React Router, Reactstrap.
 ## API
 
 This applications consumes data from an API designed by Udacity specifically for the assignment, which can be found on [Udacity's GitHub](https://github.com/udacity/reactnd-project-readable-starter).
-A copy of their repository is present here (on `server/` folder) so both could be deployed together.
+A copy of their repository is present here (on `api-server/` folder) so both could be deployed together.
 
 ## Installation
 
