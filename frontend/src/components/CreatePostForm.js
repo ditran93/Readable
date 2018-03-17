@@ -81,7 +81,7 @@ class CreatePostForm extends Component {
     console.log('form: ', this.state)
     return (
       <div className='create-post-form'>
-        <h3>Create Post Form</h3>
+        <h3>Post Form</h3>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <FormGroup>
             <Label for="selectCategories">Choose A Category</Label>

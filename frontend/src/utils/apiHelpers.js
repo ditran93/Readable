@@ -108,3 +108,90 @@ export const downVotePost = (id, option = "downVote") => {
     .then(response => response.json())
     .then(data => data)
 }
+
+/**
+ * COMMENT
+ **/
+export const fetchComments = (postId) => {
+  return fetch(
+    `${url}/posts/${postId}/comments`,
+    {
+      method: 'GET',
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => {
+    return data})
+}
+
+export const upVoteComment = (id, option = "upVote") => {
+  const voteData = { id, option }
+    return fetch(
+      `${url}/comments/${id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(voteData),
+        headers
+      }
+    )
+    .then(response => response.json())
+    .then(data => data)
+}
+
+export const downVoteComment = (id, option = "downVote") => {
+  const voteData = { id, option }
+    return fetch(
+      `${url}/comments/${id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(voteData),
+        headers
+      }
+    )
+    .then(response => response.json())
+    .then(data => data)
+}
+
+export const deleteComment = (commentId) => {
+  return fetch(
+    `${url}/comments/${commentId}`,
+    {
+      method: 'DELETE',
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => data)
+}
+
+export function editComment(comment) {
+  const commentData = {
+    ...comment,
+    timestamp: Date.now()
+  }
+
+  return fetch(
+    `${url}/comments/${comment.id}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(commentData),
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => data)
+}
+
+export function createComment(comment) {
+  return fetch(
+    `${url}/comments`,
+    {
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers
+    }
+  )
+  .then(response => response.json())
+  .then(data => data)
+}

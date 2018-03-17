@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import Vote from './Vote'
-import { Button } from 'reactstrap';
-import { Jumbotron} from 'reactstrap';
+import { Jumbotron, Button} from 'reactstrap';
 import { connect } from 'react-redux'
-import { deletePost } from '../actions'
+import { deletePost, upVotePost, downVotePost } from '../actions'
 import CreatePostForm from './CreatePostForm'
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 
 class Post extends Component {
@@ -55,7 +54,7 @@ class Post extends Component {
   }
 
   render() {
-    const { deletePost, post, isDetail} = this.props
+    const { deletePost, post, isDetail, upVotePost, downVotePost } = this.props
     if(post) {
       const date = new Date(post.timestamp).toLocaleString()
       return (
@@ -69,6 +68,8 @@ class Post extends Component {
               <h6>Comments: {post.commentCount}</h6>
               <h6><Vote 
                 voteScore={post.voteScore}
+                onUpVote={() => upVotePost(post.id)}
+                onDownVote={() => downVotePost(post.id)}
                 id={post.id}
                 type='post'
                 /></h6>
@@ -81,6 +82,7 @@ class Post extends Component {
                 <Button 
                   onClick={() => {
                     deletePost(post)
+                    this.props.history.push("/");
                   }}
                   color="danger" 
                   size="sm"
@@ -100,8 +102,10 @@ class Post extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deletePost: (post) => dispatch(deletePost(post))
+    deletePost: (post) => dispatch(deletePost(post)),
+    upVotePost: (postId) => dispatch(upVotePost(postId)),
+    downVotePost: (postId) => dispatch(downVotePost(postId))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Post)
+export default withRouter(connect(null, mapDispatchToProps)(Post))

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import MainPage from './MainPage'
-import '../styles/ReadableApp.css';
 import CreatePostForm from './CreatePostForm'
 import { Switch, withRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchPosts, fetchCategories } from '../actions/index'
 import CategoryPage from './CategoryPage'
 import PostDetails from './PostDetails'
+import Banner from './Banner'
 
 class ReadableApp extends Component {
 
@@ -18,7 +18,7 @@ class ReadableApp extends Component {
   render() {
     return (
       <div className="App">
-        <h3 className="banner"> Welcome To Readable</h3>
+        <Banner />
         <Switch>
           <Route exact path="/" render={({ history }) => (
             <div>

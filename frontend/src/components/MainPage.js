@@ -12,7 +12,7 @@ class MainPage extends Component {
     const postsArray = objectToArray(posts)
     return (
       <div>
-        <ButtonControl />
+        <ButtonControl posts={posts}/>
         <Container>
           <Row>
             <Col xs="8">

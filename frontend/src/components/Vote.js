@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 
 class Vote extends Component {
   render () {
-    const { voteScore, id, upVotePost, downVotePost} = this.props
+    const { voteScore, onUpVote, onDownVote} = this.props
     return (
       <div>
         Vote: {voteScore} 
-        <Button size="sm" onClick={() => {upVotePost(id)}}> Like </Button>
-        <Button size="sm" onClick={() => {downVotePost(id)}}> Dislike </Button>
+        <Button size="sm" onClick={() => {onUpVote()}}> Like </Button>
+        <Button size="sm" onClick={() => {onDownVote()}}> Dislike </Button>
       </div>
     )
   }
