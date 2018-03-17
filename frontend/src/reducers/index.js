@@ -4,7 +4,8 @@ import {
   GET_ALL_POSTS,
   DELETE_POST,
   EDIT_POST,
-  VOTE
+  UP_VOTE,
+  DOWN_VOTE
 } from '../actions/index'
 import { combineReducers } from 'redux'
 import { arrayToObject } from '../utils/helpers';
@@ -20,7 +21,7 @@ function categories (state = [], action) {
 }
 
 function posts (state = {}, action) {
-  const {post, posts} = action
+  const {post, posts, id} = action
   switch (action.type) {
     case CREATE_POST:
       return {
@@ -41,18 +42,22 @@ function posts (state = {}, action) {
         ...state,
         [post.id]: post
     }
-    default:
-      return state
-  }
-}
-
-function vote(state = {}, action) {
-  switch(action.type) {
-    case VOTE:
+    case UP_VOTE:
       return {
         ...state,
-        [action.id]: action.score
+        [id]: {
+          ...state[id],
+          'voteScore': state[id]['voteScore'] + 1
+        }
       }
+    case DOWN_VOTE:
+    return {
+      ...state,
+        [id]: {
+          ...state[id],
+          'voteScore': state[id]['voteScore'] - 1
+        }
+    }
     default:
       return state
   }
@@ -61,5 +66,4 @@ function vote(state = {}, action) {
 export default combineReducers({
   posts,
   categories,
-  vote
 })

@@ -5,7 +5,8 @@ export const DELETE_POST = 'DELETE_POST'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const EDIT_POST = 'EDIT_POST'
-export const VOTE = 'VOTE'
+export const UP_VOTE = 'UP_VOTE'
+export const DOWN_VOTE = 'DOWN_VOTE'
 
 /**
  * Posts
@@ -47,7 +48,6 @@ export const deletePost = (post) => (dispatch) => {
 }
 
 export const editPostAction = (post) => {
-  
   return {
     type: EDIT_POST,
     post
@@ -81,15 +81,26 @@ export const fetchCategories = () => (dispatch) => {
 /**
  * VOTE
  **/
-export const voteAction = (id, score) => {
+export const upVotePostAction = (id) => {
   return {
-    type: VOTE,
+    type: UP_VOTE,
     id,
-    score
   }
 }
 
-export const vote = (id, option, type) => dispatch => {
-  return apiHelpers.vote(id, option, type)
-    .then(data => dispatch(voteAction(id, data.voteScore)))
+export const upVotePost = (id) => dispatch => {
+  return apiHelpers.upVotePost(id)
+    .then(data => dispatch(upVotePostAction(id)))
+}
+
+export const downVotePostAction = (id) => {
+  return {
+    type: DOWN_VOTE,
+    id,
+  }
+}
+
+export const downVotePost = (id) => dispatch => {
+  return apiHelpers.downVotePost(id)
+    .then(data => dispatch(downVotePostAction(id)))
 }

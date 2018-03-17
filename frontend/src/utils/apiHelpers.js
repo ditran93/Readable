@@ -81,10 +81,8 @@ export function getAllCategories() {
 /**
  * VOTE
  **/
-export const vote = (id, option, type) => {
+export const upVotePost = (id, option = "upVote") => {
   const voteData = { id, option }
-
-  if(type === 'post') {
     return fetch(
       `${url}/posts/${id}`,
       {
@@ -95,5 +93,18 @@ export const vote = (id, option, type) => {
     )
     .then(response => response.json())
     .then(data => data)
-  }
+}
+
+export const downVotePost = (id, option = "downVote") => {
+  const voteData = { id, option }
+    return fetch(
+      `${url}/posts/${id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(voteData),
+        headers
+      }
+    )
+    .then(response => response.json())
+    .then(data => data)
 }

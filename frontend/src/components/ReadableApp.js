@@ -6,6 +6,7 @@ import { Switch, withRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchPosts, fetchCategories } from '../actions/index'
 import CategoryPage from './CategoryPage'
+import PostDetails from './PostDetails'
 
 class ReadableApp extends Component {
 
@@ -29,6 +30,9 @@ class ReadableApp extends Component {
           )}/>
           <Route exact path='/:category/' render={({match}) => (
               <CategoryPage category={match.params.category}/>
+            )}/>
+          <Route exact path='/:category/:post_id' render={({match}) => (
+              <PostDetails postId={match.params.post_id}/>
             )}/>
         </Switch>
       </div>
