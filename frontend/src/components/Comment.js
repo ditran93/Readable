@@ -3,7 +3,7 @@ import { Jumbotron, Button} from 'reactstrap'
 import ReactLoading from 'react-loading'
 import Vote from './Vote'
 import { connect } from 'react-redux'
-import { upVoteComment, downVoteComment, deleteComment } from '../actions'
+import * as actions from '../actions/comments'
 import CommentForm from './CommentForm'
 import Modal from 'react-modal';
 
@@ -44,7 +44,8 @@ class Comment extends Component {
       </Modal>
     )
   }
-  render() {
+
+  generateCommentContent() {
     const { comment, upVoteComment, downVoteComment, deleteComment } = this.props
     if(comment) {
       const date = new Date(comment.timestamp).toLocaleString()
@@ -84,6 +85,11 @@ class Comment extends Component {
       return <ReactLoading type="bars" color="grey" />
     }
   }
+  render() {
+    return(
+      this.generateCommentContent()
+    )
+  }
 }
 
-export default connect(null, {upVoteComment, downVoteComment, deleteComment})(Comment)
+export default connect(null, actions)(Comment)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap'
-import { upVotePost, downVotePost } from '../actions'
+import * as actions from '../actions/posts'
 import { connect } from 'react-redux'
 
 class Vote extends Component {
@@ -16,4 +16,4 @@ class Vote extends Component {
   }
 }
 
-export default connect(null, {upVotePost, downVotePost})(Vote)
+export default connect(null, actions)(Vote)

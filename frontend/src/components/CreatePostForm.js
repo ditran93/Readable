@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/CreatePostForm.css'
-import { createPost, editPost } from '../actions'
+import * as actions from '../actions/posts'
 import { connect } from 'react-redux'
 import { randomId } from '../utils/helpers'
 import { withRouter } from 'react-router-dom';
@@ -133,4 +133,4 @@ function mapStateToProps({ categories }) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {createPost, editPost})(CreatePostForm))
+export default withRouter(connect(mapStateToProps, actions)(CreatePostForm))

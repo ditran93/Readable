@@ -4,7 +4,7 @@ import '../styles/CreatePostForm.css'
 import { connect } from 'react-redux'
 import { randomId } from '../utils/helpers'
 import { withRouter } from 'react-router-dom';
-import { editComment, createComment } from'../actions'
+import * as actions from'../actions/comments'
 
 class CommentForm extends Component {
 
@@ -103,4 +103,4 @@ class CommentForm extends Component {
 
 
 
-export default withRouter(connect(null, {editComment, createComment})(CommentForm))
+export default withRouter(connect(null, actions)(CommentForm))

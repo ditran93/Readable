@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Vote from './Vote'
 import { Jumbotron, Button} from 'reactstrap';
 import { connect } from 'react-redux'
-import { deletePost, upVotePost, downVotePost } from '../actions'
+import * as actions from '../actions/posts'
 import CreatePostForm from './CreatePostForm'
 import Modal from 'react-modal';
 import { withRouter, Link } from 'react-router-dom'
@@ -100,12 +100,4 @@ class Post extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    deletePost: (post) => dispatch(deletePost(post)),
-    upVotePost: (postId) => dispatch(upVotePost(postId)),
-    downVotePost: (postId) => dispatch(downVotePost(postId))
-  }
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(Post))
+export default withRouter(connect(null, actions)(Post))

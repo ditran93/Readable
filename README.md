@@ -29,3 +29,12 @@ $ node server
 $ cd Readable-master/frontend/
 $ npm start
 ```
+
+## Contributors
+
+* Di Tran (https://github.com/ditran93)
+
+
+## License
+
+This project is licensed under the MIT License. Check the `LICENSE` file.

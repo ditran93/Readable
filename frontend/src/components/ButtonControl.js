@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/ButtonControl.css'
 import { connect } from 'react-redux'
-import { sortByTime, sortByVote } from '../actions'
+import * as actions from '../actions/posts'
 import {objectToArray} from '../utils/helpers'
 
 class ButtonControl extends Component {
@@ -34,4 +34,4 @@ class ButtonControl extends Component {
   }
 }
 
-export default connect(null, {sortByTime, sortByVote})(ButtonControl)
+export default connect(null, actions)(ButtonControl)

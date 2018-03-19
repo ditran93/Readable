@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Post from './Post'
 import { connect } from 'react-redux'
-import { getAllComments } from '../actions'
+import * as actions from '../actions'
 import { objectToArray } from '../utils/helpers';
 import Comment from './Comment'
 import CommentForm from './CommentForm'
-import ReactLoading from 'react-loading'
 
 class PostDetails extends Component {
 
@@ -43,4 +42,4 @@ function mapStateToProps({posts, comments}) {
   }
 }
 
-export default connect(mapStateToProps, {getAllComments})(PostDetails)
+export default connect(mapStateToProps, actions)(PostDetails)
